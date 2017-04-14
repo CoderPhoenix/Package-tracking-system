@@ -20,7 +20,6 @@ for($i=1;$i<count($myarr);$i++)
 	$arr[$i-1]=$row['cost'];
 	//echo "<script>alert('".$arr[$i-1]."');</script>";
 }
-
 $tot=60;
 $arr1=array();
 //echo "left".$myarr[0];
@@ -131,9 +130,7 @@ echo'<!DOCTYPE html>
 </div>
 <div class="w3-container w3-display-middle" style="width:800px">
   <h2>Delivery Information</h2>
- 
-
-  <table class="w3-table-all">
+   <table class="w3-table-all">
     <thead>
       <tr class="w3-light-grey">
         <th>Date</th>
@@ -147,16 +144,13 @@ echo'<!DOCTYPE html>
 	{  //echo 'hi';
 		echo'
     <tr>  <td>'.date('d/Y/m',$arr1[$j]).'</td>
-      <td>'.date('H:i:s',$arr1[$j]+19800).' </td>
+      <td>'.date('H:i:s',$arr1[$j] + 19800).' </td>
       <td>Left '.$myarr[$j].'</td>
     </tr>';
 	}	
      echo'</table>
 </div>
-
-
 </body>
 </html>
 ';
 ?>
-
