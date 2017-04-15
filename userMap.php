@@ -7,7 +7,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-    <title>Simple Polylines</title>
+    <title>User Map</title>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -67,13 +67,14 @@
 		$lat1=array();
 		$lng1=array();
 		$nodes1=array();
-		if(@$_GET['method']==0)
+	    $name1=array();
+ 	    $name=array();
+     	if(@$_GET['method']==0)
 		{	
 		$nodes=shortestPath(strtolower(trim(@$_GET['source'])),strtolower(trim(@$_GET['destination'])));
 		}
 		else if(@$_GET['method']==1)
-		{
-			
+		{	
 			$query  = $mysql_connect->query("SELECT * FROM location where node='".@$_GET['source']."'");
 			$count=$query->num_rows;
 			if($count==1)
@@ -98,7 +99,6 @@
  $query  = $mysql_connect->query("SELECT * FROM location order by id asc ");
  
  $count = $query->num_rows;
- 
  if ($count > 0) {
 	 $i=0;
     
@@ -106,9 +106,9 @@
         $nodes1[$i]=$row['id'];
 		$lat1[$i]=$row['lat'];
 		$lng1[$i]=$row['lng'];
+		$name1[$i]=$row['node'];
 		$i++;
     }
-	
 	for($j=0;$j<count($nodes);$j++)
 	{
 		for($k=0;$k<count($nodes1);$k++)
@@ -117,12 +117,13 @@
 			{
 				$lat[$j]=$lat1[$k];
 				$lng[$j]=$lng1[$k];
-                
+                $name[$j]=$name1[$k];
 				}
 		}
 	}
 		
  }
+ 
     echo "
     <div id='map'></div>
     <script>
@@ -132,13 +133,28 @@
           center: {lat: 28.704100 , lng: 77.102500},
           mapTypeId: 'terrain'
         });
+		var flightPlanCoordinates=new Array();";
+		for($j=0;$j<count($lat);$j++)
+		 {
+         
+		echo"
+		var node='".$name[$j]."';
+		var position = new google.maps.LatLng(".$lat[$j].",".$lng[$j].");
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+			title:node
+        });
+		flightPlanCoordinates.push(position);";
 		
-		var flightPlanCoordinates = [";
+		 }
+		/*echo"var flightPlanCoordinates = [";
 		 for($j=0;$j<count($lat)-1;$j++)
+		 {
           echo"{lat: ".$lat[$j].", lng:".$lng[$j]."},";
-          
-	  echo"{lat:".$lat[count($lat)-1].",lng:".$lng[count($lat)-1]."}];
-        var flightPath = new google.maps.Polyline({
+         } 
+	  echo"{lat:".$lat[count($lat)-1].",lng:".$lng[count($lat)-1]."}];*/
+        echo"var flightPath = new google.maps.Polyline({
           path: flightPlanCoordinates,
           geodesic: true,
           strokeColor: '#FF0000',
