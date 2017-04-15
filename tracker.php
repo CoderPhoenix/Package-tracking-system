@@ -20,6 +20,7 @@ for($i=1;$i<count($myarr);$i++)
 	$arr[$i-1]=$row['cost'];
 	//echo "<script>alert('".$arr[$i-1]."');</script>";
 }
+
 $tot=60;
 $arr1=array();
 //echo "left".$myarr[0];
@@ -35,14 +36,14 @@ for(;$tot<$diff and $i<count($arr);$i++)
 }
 $width1=0;
 $width2=0;
-if($tot>=60)
+if($tot>60)
 	$width1=30;
 if($i==count($arr))
 $width2=40;
 echo'<!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Tracking</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -130,7 +131,9 @@ echo'<!DOCTYPE html>
 </div>
 <div class="w3-container w3-display-middle" style="width:800px">
   <h2>Delivery Information</h2>
-   <table class="w3-table-all">
+ 
+
+  <table class="w3-table-all">
     <thead>
       <tr class="w3-light-grey">
         <th>Date</th>
@@ -144,13 +147,16 @@ echo'<!DOCTYPE html>
 	{  //echo 'hi';
 		echo'
     <tr>  <td>'.date('d/Y/m',$arr1[$j]).'</td>
-      <td>'.date('H:i:s',$arr1[$j] + 19800).' </td>
-      <td>Left '.$myarr[$j].'</td>
+      <td>'.date('H:i:s',$arr1[$j]+19800).' </td>
+      <td>Arrived at '.$myarr[$j+1].'</td>
     </tr>';
 	}	
      echo'</table>
 </div>
+
+
 </body>
 </html>
 ';
 ?>
+
