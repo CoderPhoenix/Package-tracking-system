@@ -85,6 +85,9 @@
 			$count=$query->num_rows;
 			if($count==1)
 			$nodes[1]=$row['id'];
+		    $_SESSION['path']=$nodes[0];
+			$_SESSION['path']=$_SESSION['path'].",";
+			$_SESSION['path']=$_SESSION['path'].$nodes[1]; 
 			echo "<br><br>
 	<div>
 	  <form method='post'>
@@ -120,8 +123,7 @@
                 $name[$j]=$name1[$k];
 				}
 		}
-	}
-		
+	}		
  }
  
     echo "
